@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">GoodByeWorld</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="description">description</string>
+    <string name="title">title</string>
+</resources>
