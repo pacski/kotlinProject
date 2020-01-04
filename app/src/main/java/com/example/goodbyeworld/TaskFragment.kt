@@ -35,8 +35,11 @@ public class TaskFragment : Fragment() {
 
 
         floatingActionButton2.setOnClickListener {
-            val task = Task(id = UUID.randomUUID().toString(), title = "New Task !")
-            tasksViewModel.addTask(task)
+           // val task = Task(id = UUID.randomUUID().toString(), title = "New Task !", description = "New Description !")
+            val intent = Intent(activity, TaskActivity::class.java)
+            startActivityForResult(intent, ADD_TASK_REQUEST)
+
+            //tasksViewModel.addTask(task)
         }
 
 
@@ -46,8 +49,8 @@ public class TaskFragment : Fragment() {
 
 
         adapter.onEditClickListener = { task ->
-            val intent = Intent(this, TaskActivity::class.java)
-            intent.putExtra("task_key", task)
+            val intent = Intent(activity, TaskActivity::class.java)
+            intent.putExtra(TASK_KEY, task)
             startActivityForResult(intent, EDIT_TASK_REQUEST)
         }
 
@@ -73,9 +76,11 @@ public class TaskFragment : Fragment() {
         coroutineScope.cancel()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
-        if() {
-            val task = intent!!.getSerializableExtra(TaskActivity.TASK_KEY) as Task
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == ADD_TASK_REQUEST) {
+            val task = data!!.getSerializableExtra(TaskActivity.TASK_KEY) as Task
             tasksViewModel.addTask(task)
         }
 
@@ -84,5 +89,7 @@ public class TaskFragment : Fragment() {
 
     companion object {
         private const val ADD_TASK_REQUEST = 666
+        const val EDIT_TASK_REQUEST = 709
+        const val TASK_KEY = "task"
     }
 }

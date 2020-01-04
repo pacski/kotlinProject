@@ -13,9 +13,10 @@ class TaskActivity : AppCompatActivity() {
         setContentView(R.layout.activity_task)
         val task = intent.getSerializableExtra("") as? Task
         editText.setText(task?.title.toString())
+        editText.setText(task?.description.toString())
 
         editButton.setOnClickListener {
-            val newTask = Task(id = task?.id ?: UUID.randomUUID().toString(), title = editText.text.toString())
+            val newTask = Task(id = task?.id ?: UUID.randomUUID().toString(), title = editText.text.toString(), description = editText.text.toString())
             intent.putExtra("", newTask)
             setResult(Activity.RESULT_OK, intent)
             finish()
