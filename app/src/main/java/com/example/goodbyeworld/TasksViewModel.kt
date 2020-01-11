@@ -48,8 +48,5 @@ class TasksViewModel: ViewModel() {
                 tasks.postValue(newList)
             }
         }
-
     }
-
-
 }

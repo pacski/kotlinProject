@@ -1,5 +1,6 @@
 package com.example.goodbyeworld;
 
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +14,6 @@ import kotlinx.android.synthetic.main.fragment_tasks.*
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
-import java.util.*
 
 public class TaskFragment : Fragment() {
     private val adapter = TaskAdapter()
@@ -79,9 +79,14 @@ public class TaskFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == ADD_TASK_REQUEST) {
-            val task = data!!.getSerializableExtra(TaskActivity.TASK_KEY) as Task
+        if(requestCode == ADD_TASK_REQUEST && resultCode == RESULT_OK) {
+            val task = data!!.getSerializableExtra(TASK_KEY) as Task
             tasksViewModel.addTask(task)
+        }
+
+        if(requestCode == EDIT_TASK_REQUEST && resultCode == RESULT_OK) {
+            val task = data!!.getSerializableExtra(TASK_KEY) as Task
+            tasksViewModel.editTask(task)
         }
 
         super.onActivityResult(requestCode, resultCode, data)

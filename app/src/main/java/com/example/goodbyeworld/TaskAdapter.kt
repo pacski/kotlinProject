@@ -31,6 +31,7 @@ class TaskAdapter() : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
             itemView.task_title.text = task.title
             itemView.task_description.text= task.description
             itemView.imageButton.setOnClickListener { onDeleteClickListener.invoke(task) }
+            itemView.button.setOnClickListener { onEditClickListener.invoke(task) }
         }
     }
 
